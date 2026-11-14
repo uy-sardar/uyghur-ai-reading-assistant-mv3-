@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "سۈنئىي ئەقىللىق مەزمۇن خۇلاسىلىگۈچ ۋە ئوقۇش ياردەمچىسى (AI Reading Assistant)",
+  "short_name": "ئوقۇش ياردەمچىسى",
+  "version": "1.0.0",
+  "description": "ئۇزۇن ماقالە، خەۋەر ۋە تېخنىكىلىق بەتلەرنى بىر كۇنۇپكا بىلەن 3-4 مۇھىم نۇقتىغا يىغىنچاقلايدىغان، چۈشەندۈرىدىغان ۋە تەرجىمە قىلىدىغان نۆل ئىز قوغلاشلىق بىخەتەر ياردەمچى.",
+  "default_locale": "ug",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "sidePanel"
+  ],
+  "action": {
+    "default_title": "سۈنئىي ئەقىللىق مەزمۇن خۇلاسىلىگۈچ ۋە ئوقۇش ياردەمچىسى",
+    "default_popup": "popup.html"
+  },
+  "side_panel": {
+    "default_path": "popup.html"
+  },
+  "background": {
+    "service_worker": "popup.js"
+  },
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://generativelanguage.googleapis.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none';"
+  },
+  "minimum_chrome_version": "116"
+}

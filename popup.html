@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ug" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>سۈنئىي ئەقىللىق مەزمۇن خۇلاسىلىگۈچ ۋە ئوقۇش ياردەمچىسى</title>
+  <style>
+    :root {
+      --font-uyghur: 'UKIJ Tuz', 'ALKATIP Basma', 'Uyghur Pashto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, sans-serif;
+      --bg-primary: #090d16;
+      --bg-glass: rgba(17, 24, 39, 0.78);
+      --bg-surface: rgba(30, 41, 59, 0.55);
+      --bg-surface-hover: rgba(51, 65, 85, 0.65);
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(148, 163, 184, 0.16);
+      --border-highlight: rgba(16, 185, 129, 0.45);
+      --accent-primary: #10b981;
+      --accent-secondary: #059669;
+      --accent-soft: rgba(16, 185, 129, 0.14);
+      --danger-soft: rgba(239, 68, 68, 0.15);
+      --danger-text: #fca5a5;
+      --shadow-elevated: 0 12px 32px -8px rgba(0, 0, 0, 0.45);
+      --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html[data-theme="light"] {
+      --bg-primary: #f1f5f9;
+      --bg-glass: rgba(255, 255, 255, 0.86);
+      --bg-surface: rgba(248, 250, 252, 0.92);
+      --bg-surface-hover: rgba(226, 232, 240, 0.85);
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --border-subtle: rgba(15, 23, 42, 0.1);
+      --border-highlight: rgba(5, 150, 105, 0.4);
+      --accent-primary: #059669;
+      --accent-secondary: #047857;
+      --accent-soft: rgba(5, 150, 105, 0.1);
+      --danger-soft: rgba(220, 38, 38, 0.1);
+      --danger-text: #dc2626;
+      --shadow-elevated: 0 10px 26px -6px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 372px;
+      min-height: 540px;
+      max-width: 100%;
+      direction: rtl;
+      font-family: var(--font-uyghur);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      transition: background-color 180ms var(--ease-spring), color 180ms var(--ease-spring);
+    }
+
+    /* Ambient Frosted Glass Backdrop */
+    .app-shell {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 540px;
+      padding: 14px;
+      gap: 12px;
+      background:
+        radial-gradient(circle at 85% 8%, rgba(16, 185, 129, 0.12), transparent 42%),
+        radial-gradient(circle at 12% 92%, rgba(14, 165, 233, 0.08), transparent 45%),
+        var(--bg-glass);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+    }
+
+    /* Header */
+    .top-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .brand-emblem {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.28);
+      flex-shrink: 0;
+    }
+
+    .brand-titles {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 150ms var(--ease-spring), background-color 150ms var(--ease-spring), border-color 150ms var(--ease-spring);
+    }
+
+    .icon-btn:hover {
+      background: var(--bg-surface-hover);
+      color: var(--text-primary);
+      border-color: var(--border-highlight);
+      transform: translateY(-1px);
+    }
+
+    .icon-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Segmented Mode Tabs */
+    .mode-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      padding: 4px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 11px;
+    }
+
+    .tab-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--font-uyghur);
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 7px 4px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 160ms var(--ease-spring);
+    }
+
+    .tab-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .tab-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+    }
+
+    /* Input & Target Language Controls */
+    .control-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .control-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 11.5px;
+      color: var(--text-secondary);
+    }
+
+    .text-area-input {
+      width: 100%;
+      min-height: 76px;
+      max-height: 140px;
+      resize: vertical;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-uyghur);
+      font-size: 12.5px;
+      line-height: 1.75;
+      padding: 8px 10px;
+      direction: rtl;
+      text-align: justify;
+      text-justify: inter-word;
+      outline: none;
+      transition: border-color 150ms var(--ease-spring);
+    }
+
+    .text-area-input:focus {
+      border-color: var(--accent-primary);
+    }
+
+    .select-input {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 7px;
+      padding: 4px 8px;
+      font-family: var(--font-uyghur);
+      font-size: 11.5px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Primary & Secondary Action Buttons */
+    .action-bar {
+      display: flex;
+      gap: 8px;
+    }
+
+    .primary-btn {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      color: #ffffff;
+      font-family: var(--font-uyghur);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.28);
+      transition: transform 150ms var(--ease-spring), opacity 150ms var(--ease-spring);
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    .primary-btn:active {
+      transform: scale(0.98);
+    }
+
+    .secondary-btn {
+      padding: 10px 11px;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      font-family: var(--font-uyghur);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 150ms var(--ease-spring);
+      white-space: nowrap;
+    }
+
+    .secondary-btn:hover {
+      background: var(--bg-surface-hover);
+      color: var(--text-primary);
+      border-color: var(--border-highlight);
+    }
+
+    /* Output Card & Strict Uyghur Typography Rules */
+    .result-card {
+      flex: 1;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: var(--shadow-elevated);
+    }
+
+    .result-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .result-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--accent-primary);
+      line-height: 1.5;
+    }
+
+    /* Mandatory Uyghur Paragraph Rules: RTL, Justified, 1.75em First-Line Indent */
+    .uyghur-paragraph {
+      direction: rtl;
+      text-align: justify;
+      text-justify: inter-word;
+      text-indent: 1.75em;
+      font-family: var(--font-uyghur);
+      font-size: 13px;
+      line-height: 1.85;
+      color: var(--text-primary);
+    }
+
+    /* 3-4 Key Points List */
+    .key-points-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .key-point-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 9px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      font-size: 12.5px;
+      line-height: 1.75;
+      text-align: justify;
+      text-justify: inter-word;
+      color: var(--text-secondary);
+    }
+
+    .point-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      color: var(--accent-primary);
+      font-size: 11px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Error / Status Banner */
+    .status-banner {
+      display: none;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      line-height: 1.6;
+      border: 1px solid var(--border-subtle);
+      background: var(--accent-soft);
+      color: var(--text-primary);
+    }
+
+    .status-banner.error {
+      background: var(--danger-soft);
+      color: var(--danger-text);
+    }
+
+    /* Footer Privacy Guarantee */
+    .footer-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 6px;
+      font-size: 10.5px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="brand-group">
+        <div class="brand-emblem" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+          </svg>
+        </div>
+        <div class="brand-titles">
+          <h1 class="brand-name">ئوقۇش ۋە خۇلاسىلەش ياردەمچىسى</h1>
+          <span class="brand-sub">نۆل ئىز قوغلاش · يەرلىك مەخپىيەتلىك</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="openSidePanelBtn" class="icon-btn" type="button" title="يان كۆزنەكتە ئېچىش (Side Panel)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+            <line x1="9" y1="3" x2="9" y2="21"></line>
+          </svg>
+        </button>
+        <button id="themeToggleBtn" class="icon-btn" type="button" title="يورۇق / قاراڭغۇ ھالەت">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mode Switch Tabs -->
+    <nav class="mode-tabs" role="tablist" aria-label="ئىقتىدار تۈرلىرى">
+      <button class="tab-btn active" data-mode="summarize" type="button">خۇلاسىلەش</button>
+      <button class="tab-btn" data-mode="explain" type="button">چۈشەندۈرۈش</button>
+      <button class="tab-btn" data-mode="translate" type="button">تەرجىمە</button>
+      <button class="tab-btn" data-mode="history" type="button">ساقلانمىلار</button>
+    </nav>
+
+    <!-- Source Input & Target Language Panel -->
+    <section id="inputSection" class="control-card">
+      <div class="control-row">
+        <span id="sourceLabel">ئاكتىپ بەت ياكى تاللانغان تېكىست:</span>
+        <select id="targetLangSelect" class="select-input hidden" aria-label="نىشانلىق تىل">
+          <option value="ئۇيغۇر تىلى">ئۇيغۇر تىلى</option>
+          <option value="تۈرك تىلى">تۈرك تىلى</option>
+          <option value="ئىنگلىز تىلى">ئىنگلىز تىلى</option>
+          <option value="ئەرەب تىلى">ئەرەب تىلى</option>
+        </select>
+      </div>
+      <textarea
+        id="sourceTextInput"
+        class="text-area-input"
+        placeholder="بەتتىن تېكىست ئېلىش كۇنۇپكىسىنى بېسىڭ ياكى بۇ يەرگە ماقالە تېكىستى چاپلاڭ..."
+      ></textarea>
+      <div class="action-bar">
+        <button id="runActionBtn" class="primary-btn" type="button">
+          <span id="runActionText">3-4 مۇھىم نۇقتىغا يىغىنچاقلاش</span>
+        </button>
+        <button id="capturePageBtn" class="secondary-btn" type="button" title="نۆۋەتتىكى بەتتىن تېكىست ئېلىش">
+          بەتتىن ئېلىش
+        </button>
+      </div>
+    </section>
+
+    <!-- Status / Error Message -->
+    <div id="statusBanner" class="status-banner" role="status"></div>
+
+    <!-- Output Result Card -->
+    <main id="resultSection" class="result-card">
+      <div class="result-header">
+        <h2 id="resultHeadline" class="result-title">يادرولۇق مەزمۇن خۇلاسىسى</h2>
+        <div class="header-actions">
+          <button id="copyResultBtn" class="icon-btn" type="button" title="خۇلاسىنى كۆچۈرۈش">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+          </button>
+          <button id="clearStorageBtn" class="icon-btn" type="button" title="يەرلىك خاتىرىنى تازىلاش">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <p id="overviewParagraph" class="uyghur-paragraph">
+        بۇ ياردەمچى ئۇزۇن ماقالە، خەۋەر ۋە تېخنىكىلىق بەتلەرنى بىر كۇنۇپكا بىلەن 3-4 تال يادرولۇق نۇقتىغا يىغىنچاقلاپ بېرىدۇ. بارلىق سانلىق مەلۇماتلار تامامەن ئۆز كومپيۇتېرىڭىزدا مەخپىي ساقلىنىدۇ.
+      </p>
+
+      <ul id="keyPointsList" class="key-points-list">
+        <li class="key-point-item">
+          <span class="point-num">1</span>
+          <span>پۈتۈن بەت ياكى تاللانغان ئابزاسنى دەرھال ئوقۇپ، ئەڭ مۇھىم جۈملىلەرنى سۈزۈپ چىقىدۇ.</span>
+        </li>
+        <li class="key-point-item">
+          <span class="point-num">2</span>
+          <span>مۇرەككەپ تېخنىكىلىق ئاتالغۇلارنى چۈشىنىشلىك ئۇيغۇر ئەدەبىي تىلىدا شەرھلەپ بېرىدۇ.</span>
+        </li>
+        <li class="key-point-item">
+          <span class="point-num">3</span>
+          <span>نۆل ئىز قوغلاش ۋە ئەڭ تۆۋەن ئىجازەت پرىنسىپى بىلەن شەخسىي مەخپىيەتلىكىڭىزنى قوغدايدۇ.</span>
+        </li>
+      </ul>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-bar">
+      <span>ساقلاش ئورنى: chrome.storage.local</span>
+      <span>Manifest V3 · مۇستەقىل قۇرۇلما</span>
+    </footer>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
